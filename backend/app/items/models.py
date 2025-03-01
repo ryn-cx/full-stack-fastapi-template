@@ -1,10 +1,8 @@
 import uuid
-from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
 
-if TYPE_CHECKING:
-    from app.users.models import User
+from app.users.models import User
 
 
 # Reusable properties of the Item model. This will allow schemas to easily inherit the
@@ -22,5 +20,4 @@ class ItemType:
 
 # Database model, database table inferred from class name
 class Item(ItemType, SQLModel, table=True):
-    # The original version of the template allowed None values for the owner field.
-    owner: "User" = Relationship(back_populates="items")
+    owner: User | None = Relationship(back_populates="items")
