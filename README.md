@@ -1,3 +1,7 @@
+# Purposes of this Fork
+- Refactor the existing template to be more like the FasAPI Best Practices described at [zhanymkanov/fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices)
+
+
 # Full Stack FastAPI Template
 
 <a href="https://github.com/fastapi/full-stack-fastapi-template/actions?query=workflow%3ATest" target="_blank"><img src="https://github.com/fastapi/full-stack-fastapi-template/workflows/Test/badge.svg" alt="Test"></a>
