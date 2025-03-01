@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 from app.api.deps import SessionDep
 from app.core.security import get_password_hash
-from app.user.models import User
-from app.user.schemas import (
+from app.users.models import User
+from app.users.schemas import (
     UserPublic,
 )
 

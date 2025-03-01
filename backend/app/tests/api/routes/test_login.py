@@ -8,7 +8,7 @@ from app.core.security import verify_password
 from app.crud import create_user
 from app.tests.utils.user import user_authentication_headers
 from app.tests.utils.utils import random_email, random_lower_string
-from app.user.schemas import UserCreate
+from app.users.schemas import UserCreate
 from app.utils import generate_password_reset_token
 
 

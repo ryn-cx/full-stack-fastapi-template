@@ -1,8 +1,8 @@
 from sqlmodel import Session
 
 from app import crud
-from app.item.models import Item
-from app.item.schemas import ItemCreate
+from app.items.models import Item
+from app.items.schemas import ItemCreate
 from app.tests.utils.user import create_random_user
 from app.tests.utils.utils import random_lower_string
 

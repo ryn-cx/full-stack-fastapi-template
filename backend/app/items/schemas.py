@@ -2,7 +2,7 @@ import uuid
 
 from sqlmodel import Field, SQLModel
 
-from app.item.models import ItemType
+from app.items.models import ItemType
 
 
 # Shared properties

@@ -5,7 +5,7 @@ from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
-    from app.item.models import Item
+    from app.items.models import Item
 
 
 # Reusable properties of the User model. This will allow schemas to easily inherit the

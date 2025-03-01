@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
-    from app.user.models import User
+    from app.users.models import User
 
 
 # Reusable properties of the Item model. This will allow schemas to easily inherit the
