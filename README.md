@@ -1,11 +1,11 @@
 # Purposes of this Fork
-- Refactor the existing template to be more like the FasAPI Best Practices described at [zhanymkanov/fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices)
+- Refactor the existing template to be more like the FasAPI Best Practices described at [zhanymkanov/fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices).
 
 
 # Full Stack FastAPI Template
 
-<a href="https://github.com/fastapi/full-stack-fastapi-template/actions?query=workflow%3ATest" target="_blank"><img src="https://github.com/fastapi/full-stack-fastapi-template/workflows/Test/badge.svg" alt="Test"></a>
-<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/full-stack-fastapi-template" target="_blank"><img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/full-stack-fastapi-template.svg" alt="Coverage"></a>
+<a href="https://github.com/ryn-cx/full-stack-fastapi-template/actions?query=workflow%3ATest" target="_blank"><img src="https://github.com/ryn-cx/full-stack-fastapi-template/workflows/Test/badge.svg" alt="Test"></a>
+<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/ryn-cx/full-stack-fastapi-template" target="_blank"><img src="https://coverage-badge.samuelcolvin.workers.dev/ryn-cx/full-stack-fastapi-template.svg" alt="Coverage"></a>
 
 ## Technology Stack and Features
 
@@ -30,31 +30,31 @@
 
 ### Dashboard Login
 
-[![API docs](img/login.png)](https://github.com/fastapi/full-stack-fastapi-template)
+[![API docs](img/login.png)](https://github.com/ryn-cx/full-stack-fastapi-template)
 
 ### Dashboard - Admin
 
-[![API docs](img/dashboard.png)](https://github.com/fastapi/full-stack-fastapi-template)
+[![API docs](img/dashboard.png)](https://github.com/ryn-cx/full-stack-fastapi-template)
 
 ### Dashboard - Create User
 
-[![API docs](img/dashboard-create.png)](https://github.com/fastapi/full-stack-fastapi-template)
+[![API docs](img/dashboard-create.png)](https://github.com/ryn-cx/full-stack-fastapi-template)
 
 ### Dashboard - Items
 
-[![API docs](img/dashboard-items.png)](https://github.com/fastapi/full-stack-fastapi-template)
+[![API docs](img/dashboard-items.png)](https://github.com/ryn-cx/full-stack-fastapi-template)
 
 ### Dashboard - User Settings
 
-[![API docs](img/dashboard-user-settings.png)](https://github.com/fastapi/full-stack-fastapi-template)
+[![API docs](img/dashboard-user-settings.png)](https://github.com/ryn-cx/full-stack-fastapi-template)
 
 ### Dashboard - Dark Mode
 
-[![API docs](img/dashboard-dark.png)](https://github.com/fastapi/full-stack-fastapi-template)
+[![API docs](img/dashboard-dark.png)](https://github.com/ryn-cx/full-stack-fastapi-template)
 
 ### Interactive API Documentation
 
-[![API docs](img/docs.png)](https://github.com/fastapi/full-stack-fastapi-template)
+[![API docs](img/docs.png)](https://github.com/ryn-cx/full-stack-fastapi-template)
 
 ## How To Use It
 
@@ -185,16 +185,16 @@ Decide a name for your new project's directory, you will use it below. For examp
 Go to the directory that will be the parent of your project, and run the command with your project's name:
 
 ```bash
-copier copy https://github.com/fastapi/full-stack-fastapi-template my-awesome-project --trust
+copier copy https://github.com/ryn-cx/full-stack-fastapi-template my-awesome-project --trust
 ```
 
 If you have `pipx` and you didn't install `copier`, you can run it directly:
 
 ```bash
-pipx run copier copy https://github.com/fastapi/full-stack-fastapi-template my-awesome-project --trust
+pipx run copier copy https://github.com/ryn-cx/full-stack-fastapi-template my-awesome-project --trust
 ```
 
-**Note** the `--trust` option is necessary to be able to execute a [post-creation script](https://github.com/fastapi/full-stack-fastapi-template/blob/master/.copier/update_dotenv.py) that updates your `.env` files.
+**Note** the `--trust` option is necessary to be able to execute a [post-creation script](https://github.com/ryn-cx/full-stack-fastapi-template/blob/master/.copier/update_dotenv.py) that updates your `.env` files.
 
 ### Input Variables
 
