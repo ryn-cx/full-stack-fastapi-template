@@ -5,13 +5,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
-from app import crud
-from app.api.deps import CurrentUser, SessionDep, get_current_active_superuser
-from app.core import security
-from app.core.config import settings
-from app.core.security import get_password_hash
-from app.models import Message, NewPassword, Token, UserPublic
-from app.utils import (
+from app import crud, security
+from app.config import settings
+from app.dependencies import CurrentUser, SessionDep, get_current_active_superuser
+from app.schemas import Message, NewPassword, Token
+from app.security import get_password_hash
+from app.users.schemas import UserPublic
+from app.utilities import (
     generate_password_reset_token,
     generate_reset_password_email,
     send_email,
