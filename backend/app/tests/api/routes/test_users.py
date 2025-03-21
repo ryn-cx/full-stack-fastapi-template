@@ -76,6 +76,25 @@ def test_get_existing_user(
     assert existing_user.email == api_user["email"]
 
 
+def test_get_existing_user_case_insensitive(
+    client: TestClient, superuser_token_headers: dict[str, str], db: Session
+) -> None:
+    username = random_email()
+    password = random_lower_string()
+    user_in = UserCreate(email=username, password=password)
+    user = crud.create_user(session=db, user_create=user_in)
+    user_id = user.id
+    r = client.get(
+        f"{settings.API_V1_STR}/users/{user_id}",
+        headers=superuser_token_headers,
+    )
+    assert 200 <= r.status_code < 300
+    api_user = r.json()
+    existing_user = crud.get_user_by_email(session=db, email=username.upper())
+    assert existing_user
+    assert existing_user.email == api_user["email"]
+
+
 def test_get_existing_user_current_user(client: TestClient, db: Session) -> None:
     username = random_email()
     password = random_lower_string()
@@ -310,6 +329,24 @@ def test_register_user_already_exists_error(client: TestClient) -> None:
     full_name = random_lower_string()
     data = {
         "email": settings.FIRST_SUPERUSER,
+        "password": password,
+        "full_name": full_name,
+    }
+    r = client.post(
+        f"{settings.API_V1_STR}/users/signup",
+        json=data,
+    )
+    assert r.status_code == 400
+    assert r.json()["detail"] == "The user with this email already exists in the system"
+
+
+def test_register_user_already_exists_error_case_insensitive(
+    client: TestClient,
+) -> None:
+    password = random_lower_string()
+    full_name = random_lower_string()
+    data = {
+        "email": settings.FIRST_SUPERUSER.upper(),
         "password": password,
         "full_name": full_name,
     }
