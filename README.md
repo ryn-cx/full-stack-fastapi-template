@@ -4,10 +4,15 @@
 <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/ryn-cx/full-stack-fastapi-template" target="_blank"><img src="https://coverage-badge.samuelcolvin.workers.dev/ryn-cx/full-stack-fastapi-template.svg" alt="Coverage"></a>
 
 ## Goals of This Fork
-- Have the file structure more closely follows
+- Have the file structure more closely follow
   [zhanymkanov/fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices)
-  and [Netflix/dispatch/](https://github.com/Netflix/dispatch/).
+  and [Netflix/dispatch](https://github.com/Netflix/dispatch).
 - Support case insensitive email addresses.
+    - The original template intentionally did not support case insensitive email
+      addresses because according to [RFC
+      5321](https://www.rfc-editor.org/rfc/rfc5321#section-2.3.11) email addresses can
+      be case sensitive. In practice, most websites ignore the standard to simplify the
+      experience for the end user.
 
 ## Technology Stack and Features
 
@@ -74,7 +79,7 @@ But you can do the following:
 - Clone this repository manually, set the name with the name of the project you want to use, for example `my-full-stack`:
 
 ```bash
-git clone https://github.com:ryn-cx/full-stack-fastapi-template.git my-full-stack
+git clone https://github.com/ryn-cx/full-stack-fastapi-template.git my-full-stack
 ```
 
 - Enter into the new directory:
@@ -86,13 +91,13 @@ cd my-full-stack
 - Set the new origin to your new repository, copy it from the GitHub interface, for example:
 
 ```bash
-git remote set-url origin https://github.com:octocat/my-full-stack.git
+git remote set-url origin https://github.com/octocat/my-full-stack.git
 ```
 
 - Add this repo as another "remote" to allow you to get updates later:
 
 ```bash
-git remote add upstream https://github.com:ryn-cx/full-stack-fastapi-template.git
+git remote add upstream https://github.com/ryn-cx/full-stack-fastapi-template.git
 ```
 
 - Push the code to your new repository:
@@ -110,10 +115,10 @@ After cloning the repository, and after doing changes, you might want to get the
 ```bash
 git remote -v
 
-origin    https://github.com:octocat/my-full-stack.git (fetch)
-origin    https://github.com:octocat/my-full-stack.git (push)
-upstream    https://github.com:ryn-cx/full-stack-fastapi-template.git (fetch)
-upstream    https://github.com:ryn-cx/full-stack-fastapi-template.git (push)
+origin    https://github.com/octocat/my-full-stack.git (fetch)
+origin    https://github.com/octocat/my-full-stack.git (push)
+upstream    https://github.com/ryn-cx/full-stack-fastapi-template.git (fetch)
+upstream    https://github.com/ryn-cx/full-stack-fastapi-template.git (push)
 ```
 
 - Pull the latest changes without merging:
