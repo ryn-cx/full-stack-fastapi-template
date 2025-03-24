@@ -13,7 +13,7 @@
       5321](https://www.rfc-editor.org/rfc/rfc5321#section-2.3.11) email addresses can
       be case sensitive. In practice, most websites ignore the standard to simplify the
       experience for the end user.
-- \[Optional\] Automatically load database models.
+- \[Optional\] Automatically load database models and routers.
 ## Technology Stack and Features
 
 - ⚡ [**FastAPI**](https://fastapi.tiangolo.com) for the Python backend API.
