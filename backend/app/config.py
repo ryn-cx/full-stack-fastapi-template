@@ -116,5 +116,7 @@ class Settings(BaseSettings):
 
         return self
 
+    AUTOMATICALLY_LOAD_MODELS: bool = True
+    AUTOMATICALLY_LOAD_ROUTES: bool = True
 
 settings = Settings()  # type: ignore

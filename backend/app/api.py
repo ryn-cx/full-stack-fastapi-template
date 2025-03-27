@@ -23,7 +23,7 @@ def automatically_load_routers() -> None:
             api_router.include_router(router)
 
 
-def manually_load_models() -> None:
+def manually_load_routers() -> None:
     """Manually load all of the routers.
 
     This function is left as an example of how to manually load routers if they do not
@@ -46,4 +46,7 @@ def manually_load_models() -> None:
     #     api_router.include_router(private_router)
 
 
-automatically_load_routers()
+if settings.AUTOMATICALLY_LOAD_ROUTES:
+    automatically_load_routers()
+else:
+    manually_load_routers()

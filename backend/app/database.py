@@ -1,3 +1,6 @@
+from importlib import import_module
+from pathlib import Path
+
 from sqlmodel import Session, create_engine, select
 
 from app import crud
@@ -32,3 +35,30 @@ def init_db(session: Session) -> None:
             is_superuser=True,
         )
         user = crud.create_user(session=session, user_create=user_in)
+
+
+def automatically_load_models() -> None:
+    """Automatically load all of the models from app/*/models.py"""
+    app_folder = Path(__file__).parent
+
+    for model_files in app_folder.glob("*/models.py"):
+        module_name = model_files.parent.name
+        import_module(f"app.{module_name}.models")
+
+
+def manually_load_models() -> None:
+    """Manually load all of the models.
+
+    This function is left as an example of how to manually load models if they do not
+    fit the folder structure supported by automatically_load_models."""
+
+    # Example of how to import models manually
+    # from app.users.models import User
+    # from app.items.models import Item
+
+
+def load_models() -> None:
+    if settings.AUTOMATICALLY_LOAD_MODELS:
+        automatically_load_models()
+    else:
+        manually_load_models()
