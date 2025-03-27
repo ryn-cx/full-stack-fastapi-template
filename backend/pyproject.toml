@@ -39,6 +39,7 @@ build-backend = "hatchling.build"
 
 [tool.mypy]
 strict = true
+plugins = ["pydantic.mypy"]
 exclude = ["venv", ".venv", "alembic"]
 
 [tool.ruff]
