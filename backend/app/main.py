@@ -1,9 +1,11 @@
+from importlib import import_module
+from pathlib import Path
+
 import sentry_sdk
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
 
-from app.api.main import api_router
 from app.core.config import settings
 
 
@@ -30,4 +32,23 @@ if settings.all_cors_origins:
         allow_headers=["*"],
     )
 
-app.include_router(api_router, prefix=settings.API_V1_STR)
+
+def automatically_load_routers() -> APIRouter:
+    """Automatically load all of the routers from app/*/router.py"""
+    app_folder = Path(__file__).parent
+    api_router = APIRouter()
+
+    for model_files in app_folder.glob("*/router.py"):
+        module_name = model_files.parent.name
+        router = import_module(f"app.{module_name}.router").router
+
+        if module_name == "private":
+            if settings.ENVIRONMENT == "local":
+                api_router.include_router(router)
+        else:
+            api_router.include_router(router)
+
+    return api_router
+
+
+app.include_router(automatically_load_routers(), prefix=settings.API_V1_STR)
