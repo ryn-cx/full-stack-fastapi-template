@@ -12,7 +12,7 @@ from app.core.security import get_password_hash
 from app.dependencies import CurrentUser, SessionDep, get_current_active_superuser
 from app.schemas import Message, NewPassword, Token
 from app.users.schemas import UserPublic
-from app.utilities import (
+from app.users.utilities import (
     generate_password_reset_token,
     generate_reset_password_email,
     send_email,

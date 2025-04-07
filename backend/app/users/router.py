@@ -26,7 +26,7 @@ from app.users.schemas import (
     UserUpdate,
     UserUpdateMe,
 )
-from app.utilities import generate_new_account_email, send_email
+from app.users.utilities import generate_new_account_email, send_email
 
 router = APIRouter(prefix="/users", tags=["users"])
 
