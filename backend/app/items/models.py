@@ -1,8 +1,10 @@
 import uuid
+from typing import TYPE_CHECKING, Optional
 
 from sqlmodel import Field, Relationship, SQLModel
 
-from app.users.models import User
+if TYPE_CHECKING:
+    from app.users.models import User
 
 
 # Shared properties
@@ -17,4 +19,4 @@ class Item(ItemBase, table=True):
     owner_id: uuid.UUID = Field(
         foreign_key="user.id", nullable=False, ondelete="CASCADE"
     )
-    owner: User | None = Relationship(back_populates="items")
+    owner: Optional["User"] = Relationship(back_populates="items")

@@ -1,10 +1,7 @@
-import os
 from logging.config import fileConfig
-from importlib import import_module
 from alembic import context
+from app.models import automatically_load_models
 from sqlalchemy import engine_from_config, pool
-from pathlib import Path
-from sqlmodel import MetaData
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -19,21 +16,10 @@ fileConfig(config.config_file_name)
 # target_metadata = mymodel.Base.metadata
 # target_metadata = None
 
-from sqlmodel import SQLModel
+target_metadata = automatically_load_models()
 from app.core.config import settings # noqa
 
 
-def automatically_load_models() -> MetaData:
-    """Automatically load all of the models from app/*/models.py"""
-    app_folder = Path(__file__).parent.parent
-
-    for model_files in app_folder.glob("*/models.py"):
-        module_name = model_files.parent.name
-        import_module(f"app.{module_name}.models")
-
-    return SQLModel.metadata
-
-target_metadata = automatically_load_models()
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
