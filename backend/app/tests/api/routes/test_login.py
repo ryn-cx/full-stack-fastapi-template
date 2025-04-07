@@ -5,10 +5,10 @@ from sqlmodel import Session
 
 from app.core.config import settings
 from app.core.security import verify_password
-from app.crud import create_user
 from app.tests.utils.user import user_authentication_headers
 from app.tests.utils.utils import random_email, random_lower_string
 from app.users.schemas import UserCreate
+from app.users.service import create_user
 from app.users.utilities import generate_password_reset_token
 
 
