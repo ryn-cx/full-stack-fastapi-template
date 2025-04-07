@@ -3,8 +3,9 @@ from sqlmodel import Session
 
 from app import crud
 from app.core.security import verify_password
-from app.models import User, UserCreate, UserUpdate
 from app.tests.utils.utils import random_email, random_lower_string
+from app.users.models import User
+from app.users.schemas import UserCreate, UserUpdate
 
 
 def test_create_user(db: Session) -> None:

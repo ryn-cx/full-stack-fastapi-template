@@ -12,11 +12,13 @@ from app.api.deps import (
 )
 from app.core.config import settings
 from app.core.security import get_password_hash, verify_password
-from app.models import (
-    Item,
+from app.items.models import Item
+from app.schemas import (
     Message,
+)
+from app.users.models import User
+from app.users.schemas import (
     UpdatePassword,
-    User,
     UserCreate,
     UserPublic,
     UserRegister,
