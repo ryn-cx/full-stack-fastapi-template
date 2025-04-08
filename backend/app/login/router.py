@@ -5,12 +5,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
-import app.users.service
 from app.core import security
 from app.core.config import settings
 from app.core.security import get_password_hash
 from app.dependencies import CurrentUser, SessionDep, get_current_active_superuser
 from app.schemas import Message, NewPassword, Token
+from app.users import service
 from app.users.schemas import UserPublic
 from app.users.utilities import (
     generate_password_reset_token,
@@ -29,7 +29,7 @@ def login_access_token(
     """
     OAuth2 compatible token login, get an access token for future requests
     """
-    user = app.users.service.authenticate(
+    user = service.authenticate(
         session=session, email=form_data.username, password=form_data.password
     )
     if not user:
@@ -57,7 +57,7 @@ def recover_password(email: str, session: SessionDep) -> Message:
     """
     Password Recovery
     """
-    user = app.users.service.get_user_by_email(session=session, email=email)
+    user = service.get_user_by_email(session=session, email=email)
 
     if not user:
         raise HTTPException(
@@ -84,7 +84,7 @@ def reset_password(session: SessionDep, body: NewPassword) -> Message:
     email = verify_password_reset_token(token=body.token)
     if not email:
         raise HTTPException(status_code=400, detail="Invalid token")
-    user = app.users.service.get_user_by_email(session=session, email=email)
+    user = service.get_user_by_email(session=session, email=email)
     if not user:
         raise HTTPException(
             status_code=404,
@@ -108,7 +108,7 @@ def recover_password_html_content(email: str, session: SessionDep) -> Any:
     """
     HTML Content for Password Recovery
     """
-    user = app.users.service.get_user_by_email(session=session, email=email)
+    user = service.get_user_by_email(session=session, email=email)
 
     if not user:
         raise HTTPException(
