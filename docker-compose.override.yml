@@ -49,6 +49,10 @@ services:
     restart: "no"
     ports:
       - "5432:5432"
+    volumes:
+      - ./scripts/database:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=${POSTGRES_TEST_DB?Variable not set}
 
   adminer:
     restart: "no"
