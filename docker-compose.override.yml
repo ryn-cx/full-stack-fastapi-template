@@ -69,17 +69,12 @@ services:
       - "app/main.py"
     develop:
       watch:
-        - path: ./backend
-          action: sync
-          target: /app
-          ignore:
-            - ./backend/.venv
-            - .venv
         - path: ./backend/pyproject.toml
           action: rebuild
     # TODO: remove once coverage is done locally
     volumes:
-      - ./backend/htmlcov:/app/htmlcov
+      - ./backend:/app
+      - /app/.venv
     environment:
       SMTP_HOST: "mailcatcher"
       SMTP_PORT: "1025"
