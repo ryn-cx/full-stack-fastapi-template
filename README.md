@@ -12,6 +12,13 @@
       experience for the end user.
 - Automatically load database models and routers based on the file structure of the app.
 - Make Alembic use timestamp prepended migration files.
+- Use a separate database for backend unit tests.
+    - Normally the database is cleared out when unit tests are run. This change
+      allows data in the database to persist to make debugging easier.
+- Make the app folder in the backend Docker container a volume instead of a
+  sync.
+    - Normally files are only synced from the host to the container. Using a
+      volume makes it a two way sync which simplifies some workflows.
 
 ## Technology Stack and Features
 
