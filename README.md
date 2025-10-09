@@ -15,6 +15,7 @@
       experience for the end user.
 - ⚡ Automatically load database models and routers.
 - 🧪 Run backend tests on a seperate database.
+- ✨ Generate the frontend client using uvx instead of Python.
 ## Technology Stack and Features
 
 - ⚡ [**FastAPI**](https://fastapi.tiangolo.com) for the Python backend API.
