@@ -16,6 +16,8 @@
 - ⚡ Automatically load database models and routers.
 - 🧪 Run backend tests on a seperate database.
 - ✨ Generate the frontend client using uvx instead of Python.
+- 🌐 Automatically configure CORS for production frontend.
+- 🏠 Set the default production URL to be the root domain instead of the dashboard subdomain
 ## Technology Stack and Features
 
 - ⚡ [**FastAPI**](https://fastapi.tiangolo.com) for the Python backend API.
