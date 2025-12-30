@@ -20,7 +20,7 @@ def init_db(session: Session) -> None:
     load_models()
 
     user = session.exec(
-        select(User).where(User.email == settings.FIRST_SUPERUSER)
+        select(User).where(User.email == settings.FIRST_SUPERUSER),
     ).first()
     if not user:
         user_in = UserCreate(
