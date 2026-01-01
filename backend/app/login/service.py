@@ -1,8 +1,12 @@
-from sqlmodel import Session
+from typing import TYPE_CHECKING
 
 from app.security import verify_password
-from app.users.models import User
 from app.users.service import get_user_by_email
+
+if TYPE_CHECKING:
+    from sqlmodel import Session
+
+    from app.users.models import User
 
 
 def authenticate(*, session: Session, email: str, password: str) -> User | None:
