@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import TYPE_CHECKING, Annotated
 
 import jwt
 from fastapi import Depends, HTTPException, status
@@ -8,12 +8,15 @@ from pydantic import ValidationError
 
 from app import security
 from app.config import settings
-from app.dependencies import SessionDep
 from app.schemas import TokenPayload
 from app.users.models import User
 
+if TYPE_CHECKING:
+    from app.dependencies import SessionDep
+
+
 reusable_oauth2 = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.API_V1_STR}/login/access-token"
+    tokenUrl=f"{settings.API_V1_STR}/login/access-token",
 )
 
 TokenDep = Annotated[str, Depends(reusable_oauth2)]
@@ -21,8 +24,12 @@ TokenDep = Annotated[str, Depends(reusable_oauth2)]
 
 def get_current_user(session: SessionDep, token: TokenDep) -> User:
     try:
-        payload = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[security.ALGORITHM]
+        # reportUnknownMemberType - This is how the original code for the template was
+        # written.
+        payload = jwt.decode(  # pyright: ignore[reportUnknownMemberType]
+            token,
+            settings.SECRET_KEY,
+            algorithms=[security.ALGORITHM],
         )
         token_data = TokenPayload(**payload)
     except (InvalidTokenError, ValidationError):
@@ -33,11 +40,13 @@ def get_current_user(session: SessionDep, token: TokenDep) -> User:
     user = session.get(User, token_data.sub)
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
         )
     if not user.is_active:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, detail="Inactive user"
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Inactive user",
         )
     return user
 
