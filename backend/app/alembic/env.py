@@ -1,4 +1,3 @@
-import os
 from logging.config import fileConfig
 
 from alembic import context
@@ -30,11 +29,11 @@ target_metadata = SQLModel.metadata
 # ... etc.
 
 
-def get_url():
+def get_url() -> str:
     return str(settings.SQLALCHEMY_DATABASE_URI)
 
 
-def run_migrations_offline():
+def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 
     This configures the context with just a URL
@@ -55,7 +54,7 @@ def run_migrations_offline():
         context.run_migrations()
 
 
-def run_migrations_online():
+def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
     In this scenario we need to create an Engine
