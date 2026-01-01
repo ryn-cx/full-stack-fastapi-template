@@ -1,9 +1,13 @@
-import uuid
-
-from sqlmodel import Session
+from typing import TYPE_CHECKING
 
 from app.items.models import Item
-from app.items.schemas import ItemCreate
+
+if TYPE_CHECKING:
+    import uuid
+
+    from sqlmodel import Session
+
+    from app.items.schemas import ItemCreate
 
 
 def create_item(*, session: Session, item_in: ItemCreate, owner_id: uuid.UUID) -> Item:
