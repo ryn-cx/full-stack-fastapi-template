@@ -4,6 +4,7 @@
 <a href="https://github.com/fastapi/full-stack-fastapi-template/actions?query=workflow%3A%22Test+Backend%22" target="_blank"><img src="https://github.com/fastapi/full-stack-fastapi-template/workflows/Test%20Backend/badge.svg" alt="Test Backend"></a>
 
 ## Goals of This Fork
+
 - 📁 Have the file structure more closely follow
   [zhanymkanov/fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices)
   and [Netflix/dispatch](https://github.com/Netflix/dispatch).
@@ -15,12 +16,13 @@
       experience for the end user.
 - ⚡ Automatically load database models and routers.
 - 🧪 Run backend tests on a seperate database.
-- ✨ Generate the frontend client using uvx instead of Python.
 - 🌐 Automatically configure CORS for production frontend.
 - 🏠 Set the default production URL to be the root domain instead of the dashboard
   subdomain.
-- 🧹 A sctricter linter configuration with many changes applied to make the code base more consistent.
+- 🧹 Stricter linter configuration with all existing code updated to meet the new standards.
 - 🪝Call Python through uv in scripts instead of calling it directly.
+- 🕷️ Various minor bug fixes.
+
 ## Technology Stack and Features
 
 - ⚡ [**FastAPI**](https://fastapi.tiangolo.com) for the Python backend API.
