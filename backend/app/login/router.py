@@ -4,7 +4,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse
 
-# TC002 - Required for OAuth2PasswordRequestForm.
+# TC002 - Required for FastAPI dependency injection.
 from fastapi.security import OAuth2PasswordRequestForm  # noqa: TC002
 
 from app import security
