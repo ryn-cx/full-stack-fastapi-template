@@ -2,7 +2,8 @@ import uuid
 
 from sqlmodel import Field, Relationship, SQLModel
 
-from app.users.models import User
+# TC001 - Required for sqlmodel
+from app.users.models import User  # noqa: TC001
 
 
 # Shared properties
@@ -15,6 +16,8 @@ class ItemBase(SQLModel):
 class Item(ItemBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     owner_id: uuid.UUID = Field(
-        foreign_key="user.id", nullable=False, ondelete="CASCADE"
+        foreign_key="user.id",
+        nullable=False,
+        ondelete="CASCADE",
     )
     owner: User | None = Relationship(back_populates="items")
