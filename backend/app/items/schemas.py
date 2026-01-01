@@ -1,4 +1,5 @@
-import uuid
+# TC003 - Required for sqlmodel
+import uuid  # noqa: TC003
 
 from sqlmodel import Field, SQLModel
 
@@ -12,7 +13,9 @@ class ItemCreate(ItemBase):
 
 # Properties to receive on item update
 class ItemUpdate(ItemBase):
-    title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
+    # assignment - This is just how the item schema was designed in the original
+    # template.
+    title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore[assignment]
 
 
 # Properties to return via API, id is always required
