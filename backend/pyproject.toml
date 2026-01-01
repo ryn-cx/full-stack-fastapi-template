@@ -54,6 +54,12 @@ ignore = [
     "D",    # Too much existing code does not include docstrings so ignore all docstring rules
 ]
 
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"] # Asserts should be allowed in tests.
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
 [tool.coverage.run]
 source = ["app"]
 dynamic_context = "test_function"
