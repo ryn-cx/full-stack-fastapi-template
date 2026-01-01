@@ -1,13 +1,16 @@
 import random
 import string
-
-from fastapi.testclient import TestClient
+from typing import TYPE_CHECKING
 
 from app.config import settings
 
+if TYPE_CHECKING:
+    from fastapi.testclient import TestClient
+
 
 def random_lower_string() -> str:
-    return "".join(random.choices(string.ascii_lowercase, k=32))
+    # S311 - This does not need to be cryptographically secure.
+    return "".join(random.choices(string.ascii_lowercase, k=32))  # noqa: S311
 
 
 def random_email() -> str:
@@ -22,5 +25,4 @@ def get_superuser_token_headers(client: TestClient) -> dict[str, str]:
     r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
     tokens = r.json()
     a_token = tokens["access_token"]
-    headers = {"Authorization": f"Bearer {a_token}"}
-    return headers
+    return {"Authorization": f"Bearer {a_token}"}

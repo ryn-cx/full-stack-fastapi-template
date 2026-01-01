@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Annotated
+from typing import Annotated
 
 import jwt
 from fastapi import Depends, HTTPException, status
@@ -8,12 +8,9 @@ from pydantic import ValidationError
 
 from app import security
 from app.config import settings
+from app.dependencies import SessionDep  # noqa: TC001
 from app.schemas import TokenPayload
 from app.users.models import User
-
-if TYPE_CHECKING:
-    from app.dependencies import SessionDep
-
 
 reusable_oauth2 = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/login/access-token",

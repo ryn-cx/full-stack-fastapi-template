@@ -1,10 +1,13 @@
 import logging
+from typing import TYPE_CHECKING
 
-from sqlalchemy import Engine
 from sqlmodel import Session, select
 from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
 
 from app.database import engine
+
+if TYPE_CHECKING:
+    from sqlalchemy import Engine
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -24,9 +27,9 @@ def init(db_engine: Engine) -> None:
         # Try to create session to check if DB is awake
         with Session(db_engine) as session:
             session.exec(select(1))
-    except Exception as e:
-        logger.error(e)
-        raise e
+    except Exception:
+        logger.exception("")
+        raise
 
 
 def main() -> None:

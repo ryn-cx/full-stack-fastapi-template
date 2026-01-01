@@ -9,7 +9,7 @@ class Message(SQLModel):
 # JSON payload containing access token
 class Token(SQLModel):
     access_token: str
-    token_type: str = "bearer"
+    token_type: str = "bearer"  # noqa: S105 - This is not a hardcoded password.
 
 
 # Contents of JWT token

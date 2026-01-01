@@ -2,8 +2,6 @@ import uuid
 from unittest.mock import patch
 
 from fastapi import status
-
-# TC002 - Moving this to an import block breaks the tests.
 from fastapi.testclient import TestClient  # noqa: TC002
 from sqlmodel import Session, select
 

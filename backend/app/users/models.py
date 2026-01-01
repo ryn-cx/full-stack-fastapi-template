@@ -1,7 +1,6 @@
 import uuid
 from typing import TYPE_CHECKING
 
-# TC002 - Required for sqlmodel
 from pydantic import EmailStr  # noqa: TC002
 from sqlmodel import Field, Relationship, SQLModel
 

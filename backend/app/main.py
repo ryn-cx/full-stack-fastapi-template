@@ -1,10 +1,14 @@
+from typing import TYPE_CHECKING
+
 import sentry_sdk
 from fastapi import FastAPI
-from fastapi.routing import APIRoute
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api import api_router
 from app.config import settings
+
+if TYPE_CHECKING:
+    from fastapi.routing import APIRoute
 
 
 def custom_generate_unique_id(route: APIRoute) -> str:

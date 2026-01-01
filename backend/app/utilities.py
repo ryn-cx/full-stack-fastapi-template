@@ -1,10 +1,10 @@
 import logging
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
-import emails  # type: ignore
+import emails  # type: ignore[import-untyped]
 import jwt
 from jinja2 import Template
 from jwt.exceptions import InvalidTokenError
@@ -26,8 +26,7 @@ def render_email_template(*, template_name: str, context: dict[str, Any]) -> str
     template_str = (
         Path(__file__).parent / "email-templates" / "build" / template_name
     ).read_text()
-    html_content = Template(template_str).render(context)
-    return html_content
+    return Template(template_str).render(context)
 
 
 def send_email(
@@ -36,13 +35,19 @@ def send_email(
     subject: str = "",
     html_content: str = "",
 ) -> None:
-    assert settings.emails_enabled, "no provided configuration for email variables"
+    if not settings.emails_enabled:
+        msg = "email settings are not configured, cannot send email"
+        raise ValueError(msg)
+
     message = emails.Message(
         subject=subject,
         html=html_content,
         mail_from=(settings.EMAILS_FROM_NAME, settings.EMAILS_FROM_EMAIL),
     )
-    smtp_options = {"host": settings.SMTP_HOST, "port": settings.SMTP_PORT}
+    smtp_options: dict[str, str | int | None] = {
+        "host": settings.SMTP_HOST,
+        "port": settings.SMTP_PORT,
+    }
     if settings.SMTP_TLS:
         smtp_options["tls"] = True
     elif settings.SMTP_SSL:
@@ -51,8 +56,9 @@ def send_email(
         smtp_options["user"] = settings.SMTP_USER
     if settings.SMTP_PASSWORD:
         smtp_options["password"] = settings.SMTP_PASSWORD
-    response = message.send(to=email_to, smtp=smtp_options)
-    logger.info(f"send email result: {response}")
+    # All of these errors are from dependencies of the original template.
+    response = message.send(to=email_to, smtp=smtp_options)  # pyright: ignore[reportUnknownMemberType, reportUnknownVariableType]
+    logger.info("send email result: %s", response)  # pyright: ignore[reportUnknownArgumentType]
 
 
 def generate_test_email(email_to: str) -> EmailData:
@@ -83,7 +89,9 @@ def generate_reset_password_email(email_to: str, email: str, token: str) -> Emai
 
 
 def generate_new_account_email(
-    email_to: str, username: str, password: str
+    email_to: str,
+    username: str,
+    password: str,
 ) -> EmailData:
     project_name = settings.PROJECT_NAME
     subject = f"{project_name} - New account for user {username}"
@@ -102,21 +110,24 @@ def generate_new_account_email(
 
 def generate_password_reset_token(email: str) -> str:
     delta = timedelta(hours=settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS)
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     expires = now + delta
     exp = expires.timestamp()
-    encoded_jwt = jwt.encode(
+    # reportUnknownMemberType - From original template.
+    return jwt.encode(  # pyright: ignore[reportUnknownMemberType]
         {"exp": exp, "nbf": now, "sub": email},
         settings.SECRET_KEY,
         algorithm=security.ALGORITHM,
     )
-    return encoded_jwt
 
 
 def verify_password_reset_token(token: str) -> str | None:
     try:
-        decoded_token = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[security.ALGORITHM]
+        # reportUnknownMemberType - From original template.
+        decoded_token = jwt.decode(  # pyright: ignore[reportUnknownMemberType]
+            token,
+            settings.SECRET_KEY,
+            algorithms=[security.ALGORITHM],
         )
         return str(decoded_token["sub"])
     except InvalidTokenError:

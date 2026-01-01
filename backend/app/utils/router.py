@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, status
-from pydantic.networks import EmailStr
+from pydantic.networks import EmailStr  # noqa: TC002
 
 from app.schemas import Message
 from app.users.dependencies import get_current_active_superuser

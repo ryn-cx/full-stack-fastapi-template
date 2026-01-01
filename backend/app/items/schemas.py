@@ -1,5 +1,4 @@
-# TC003 - Required for sqlmodel
-import uuid  # noqa: TC003
+import uuid  # noqa: TC003 - Required for SQLModel
 
 from sqlmodel import Field, SQLModel
 

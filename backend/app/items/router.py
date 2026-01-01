@@ -1,16 +1,12 @@
-# TC001 - Required for FastAPI dependency injection.
 import uuid  # noqa: TC003
 
 from fastapi import APIRouter, HTTPException, status
 from sqlmodel import func, select
 
-# TC001 - Required for FastAPI dependency injection.
 from app.dependencies import SessionDep  # noqa: TC001
 from app.items.models import Item
 from app.items.schemas import ItemCreate, ItemPublic, ItemsPublic, ItemUpdate
 from app.schemas import Message
-
-# TC001 - Required for FastAPI dependency injection.
 from app.users.dependencies import CurrentUser  # noqa: TC001
 
 router = APIRouter(prefix="/items", tags=["items"])
@@ -57,8 +53,7 @@ def read_items(
 def read_item(
     session: SessionDep,
     current_user: CurrentUser,
-    # A002 - This is the name given by the original template.
-    id: uuid.UUID,  # noqa: A002
+    id: uuid.UUID,  # noqa: A002 - This is the name given by the original template.
 ) -> Item:
     """
     Get item by ID.
@@ -99,8 +94,7 @@ def update_item(
     *,
     session: SessionDep,
     current_user: CurrentUser,
-    # A002 - This is the name given by the original template.
-    id: uuid.UUID,  # noqa: A002
+    id: uuid.UUID,  # noqa: A002 - This is the name given by the original template.
     item_in: ItemUpdate,
 ) -> Item:
     """
@@ -129,8 +123,7 @@ def update_item(
 def delete_item(
     session: SessionDep,
     current_user: CurrentUser,
-    # A002 - This is the name given by the original template.
-    id: uuid.UUID,  # noqa: A002
+    id: uuid.UUID,  # noqa: A002 - This is the name given by the original template.
 ) -> Message:
     """
     Delete an item.

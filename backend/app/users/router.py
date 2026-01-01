@@ -1,4 +1,3 @@
-# TC003 - Required for FastAPI dependency injection.
 import uuid  # noqa: TC003
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -6,8 +5,6 @@ from sqlmodel import col, delete, func, select
 
 from app import security
 from app.config import settings
-
-# TC001 - Required for FastAPI dependency injection.
 from app.dependencies import SessionDep  # noqa: TC001
 from app.items.models import Item
 from app.schemas import Message

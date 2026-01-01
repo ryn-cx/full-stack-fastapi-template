@@ -2,7 +2,6 @@ import uuid
 
 from sqlmodel import Field, Relationship, SQLModel
 
-# TC001 - Required for sqlmodel
 from app.users.models import User  # noqa: TC001
 
 

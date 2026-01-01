@@ -1,5 +1,5 @@
 from fastapi.encoders import jsonable_encoder
-from sqlmodel import Session
+from sqlmodel import Session  # noqa: TC002
 
 from app.login import service as login_service
 from app.security import verify_password
@@ -24,7 +24,9 @@ def test_authenticate_user(db: Session) -> None:
     user_in = UserCreate(email=email, password=password)
     user = user_service.create_user(session=db, user_create=user_in)
     authenticated_user = login_service.authenticate(
-        session=db, email=email, password=password
+        session=db,
+        email=email,
+        password=password,
     )
     assert authenticated_user
     assert user.email == authenticated_user.email
@@ -48,9 +50,9 @@ def test_check_if_user_is_active(db: Session) -> None:
 def test_check_if_user_is_active_inactive(db: Session) -> None:
     email = random_email()
     password = random_lower_string()
-    user_in = UserCreate(email=email, password=password, disabled=True)
+    user_in = UserCreate(email=email, password=password, is_active=False)
     user = user_service.create_user(session=db, user_create=user_in)
-    assert user.is_active
+    assert user.is_active is False
 
 
 def test_check_if_user_is_superuser(db: Session) -> None:
@@ -87,8 +89,7 @@ def test_update_user(db: Session) -> None:
     user = user_service.create_user(session=db, user_create=user_in)
     new_password = random_lower_string()
     user_in_update = UserUpdate(password=new_password, is_superuser=True)
-    if user.id is not None:
-        user_service.update_user(session=db, db_user=user, user_in=user_in_update)
+    user_service.update_user(session=db, db_user=user, user_in=user_in_update)
     user_2 = db.get(User, user.id)
     assert user_2
     assert user.email == user_2.email

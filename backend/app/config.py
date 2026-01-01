@@ -1,6 +1,6 @@
 import secrets
 import warnings
-from typing import Annotated, Any, Literal, Self
+from typing import Annotated, Literal, Self
 
 from pydantic import (
     AnyUrl,
@@ -14,10 +14,15 @@ from pydantic import (
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-def parse_cors(v: Any) -> list[str] | str:
+def parse_cors(v: list[str] | str) -> list[str] | str:
     if isinstance(v, str) and not v.startswith("["):
         return [i.strip() for i in v.split(",") if i.strip()]
-    if isinstance(v, list | str):
+    # reportUnnecessaryIsInstance - The inputs type hints for this function can be
+    # bypassed by changing the environment variable directly so validation. So even
+    # though the functions expects a list[str] | str, it is possible to force a
+    # different type by changing the environment variable directly. Therefore an extra
+    # check is needed to make sure the type is correct.
+    if isinstance(v, list | str):  # pyright: ignore[reportUnnecessaryIsInstance]
         return v
     raise ValueError(v)
 
@@ -58,7 +63,7 @@ class Settings(BaseSettings):
 
     @computed_field  # type: ignore[prop-decorator]
     @property
-    def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
+    def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:  # noqa: N802 - Name is from the original template.
         return PostgresDsn.build(
             scheme="postgresql+psycopg",
             username=self.POSTGRES_USER,
@@ -80,7 +85,8 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def _set_default_emails_from(self) -> Self:
         if not self.EMAILS_FROM_NAME:
-            self.EMAILS_FROM_NAME = self.PROJECT_NAME
+            # reportConstantRedefinition - Name is from the original template.
+            self.EMAILS_FROM_NAME = self.PROJECT_NAME  # pyright: ignore[reportConstantRedefinition]
         return self
 
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = 48
@@ -117,4 +123,5 @@ class Settings(BaseSettings):
         return self
 
 
-settings = Settings()  # type: ignore
+# call-arg - Error is from the original template.
+settings = Settings()  # type: ignore[call-arg]

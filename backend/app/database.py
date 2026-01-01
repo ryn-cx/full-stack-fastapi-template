@@ -32,15 +32,8 @@ def init_db(session: Session) -> None:
 
 
 def load_models() -> None:
-    """Load all of the models."""
-    # Automatically load all of the routers from app/*/router.py
+    """Automatically load all of the models from app/*/models.py."""
     app_folder = Path(__file__).parent
 
     for model_file in app_folder.glob("*/models.py"):
-        module_name = model_file.parent.name
-        import_module(f"app.{module_name}.models")
-
-    # # Alternative method to manually load all of the routers
-    # Example of how to import models manually
-    # from app.users.models import User
-    # from app.items.models import Item
+        import_module(f"app.{model_file.parent.name}.models")

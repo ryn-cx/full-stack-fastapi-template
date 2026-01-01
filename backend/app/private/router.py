@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-# TC001 - Required for FastAPI dependency injection.
 from app.dependencies import SessionDep  # noqa: TC001
 from app.security import get_password_hash
 from app.users.models import User

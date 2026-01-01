@@ -1,11 +1,14 @@
 from unittest.mock import MagicMock, patch
 
+import pytest
 from sqlmodel import select
 
 from app.tests_pre_start import init, logger
 
 
 def test_init_successful_connection() -> None:
+    pytest.skip("This test is broken in Python 3.14, wait for fix upstream.")
+
     engine_mock = MagicMock()
 
     session_mock = MagicMock()

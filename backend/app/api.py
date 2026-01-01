@@ -7,7 +7,8 @@ from app.config import settings
 
 api_router = APIRouter()
 
-# Automatically load all of the routers from app/*/router.py
+# Automatically load all of the routers from app/*/router.py and add them to the
+# api_router.
 app_folder = Path(__file__).parent
 for model_files in app_folder.glob("*/router.py"):
     module_name = model_files.parent.name

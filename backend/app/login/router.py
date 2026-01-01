@@ -3,14 +3,10 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse
-
-# TC002 - Required for FastAPI dependency injection.
 from fastapi.security import OAuth2PasswordRequestForm  # noqa: TC002
 
 from app import security
 from app.config import settings
-
-# TC001 - Required for FastAPI dependency injection.
 from app.dependencies import SessionDep  # noqa: TC001
 from app.login import service as login_service
 from app.schemas import Message, NewPassword, Token
