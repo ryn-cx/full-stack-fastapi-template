@@ -1,9 +1,8 @@
-from typing import Any
-
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from app.dependencies import SessionDep
+# TC001 - Required for FastAPI dependency injection.
+from app.dependencies import SessionDep  # noqa: TC001
 from app.security import get_password_hash
 from app.users.models import User
 from app.users.schemas import UserPublic
@@ -19,7 +18,7 @@ class PrivateUserCreate(BaseModel):
 
 
 @router.post("/users/", response_model=UserPublic)
-def create_user(user_in: PrivateUserCreate, session: SessionDep) -> Any:
+def create_user(user_in: PrivateUserCreate, session: SessionDep) -> User:
     """
     Create a new user.
     """
