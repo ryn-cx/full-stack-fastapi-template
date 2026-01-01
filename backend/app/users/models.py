@@ -1,7 +1,8 @@
 import uuid
 from typing import TYPE_CHECKING
 
-from pydantic import EmailStr
+# TC002 - Required for sqlmodel
+from pydantic import EmailStr  # noqa: TC002
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
@@ -20,4 +21,4 @@ class UserBase(SQLModel):
 class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
-    items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
+    items: list[Item] = Relationship(back_populates="owner", cascade_delete=True)
