@@ -1,13 +1,11 @@
+import uuid  # noqa: TC003
 from datetime import UTC, datetime, timedelta
-from typing import TYPE_CHECKING
 
 import jwt
 from passlib.context import CryptContext
 
 from app.config import settings
 
-if TYPE_CHECKING:
-    import uuid
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
