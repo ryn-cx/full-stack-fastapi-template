@@ -20,7 +20,7 @@
 ## Frontend Changes in this Fork
 
 - 🤞 Optimistic updates when modifying items and users.
-- 📄 Client-side pagination.
+- 📄 Client-side pagination, filtering, and sorting.
     - In the original template, the backend paginated results but the frontend had no
       way to load data past the first page. TanStack Table [handles 100,000 rows
       comfortably](https://tanstack.com/table/v8/docs/guide/pagination), and most
