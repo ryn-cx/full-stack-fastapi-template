@@ -21,11 +21,11 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
-      - run: docker compose build
-      - run: docker compose down -v --remove-orphans
-      - run: docker compose up -d --wait backend frontend adminer
+      - run: docker compose -f compose.yml -f compose.ci.yml build
+      - run: docker compose -f compose.yml -f compose.ci.yml down -v --remove-orphans
+      - run: docker compose -f compose.yml -f compose.ci.yml up -d --wait backend frontend adminer
       - name: Test backend is up
         run: curl http://localhost:8000/api/v1/utils/health-check
       - name: Test frontend is up
         run: curl http://localhost:5173
-      - run: docker compose down -v --remove-orphans
+      - run: docker compose -f compose.yml -f compose.ci.yml down -v --remove-orphans
