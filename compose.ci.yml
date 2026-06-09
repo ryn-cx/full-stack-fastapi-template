@@ -11,6 +11,45 @@ services:
       - "1080:1080"
       - "1025:1025"
 
+  backend:
+    ports:
+      - "8000:8000"
+    environment:
+      - SMTP_HOST=mailcatcher
+      - SMTP_PORT=1025
+      - SMTP_TLS=false
+      - EMAILS_FROM_EMAIL=noreply@example.com
+
+  frontend:
+    ports:
+      - "5173:80"
+
+  adminer:
+    ports:
+      - "8080:8080"
+
+  playwright:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile.playwright
+      args:
+        - VITE_API_URL=http://backend:8000
+        - NODE_ENV=production
+    ipc: host
+    depends_on:
+      - backend
+      - mailcatcher
+    env_file:
+      - .env
+    environment:
+      - VITE_API_URL=http://backend:8000
+      - MAILCATCHER_HOST=http://mailcatcher:1080
+      - PLAYWRIGHT_HTML_HOST=0.0.0.0
+      - CI=${CI}
+    volumes:
+      - ./frontend/blob-report:/app/frontend/blob-report
+      - ./frontend/test-results:/app/frontend/test-results
+
 networks:
   traefik-public:
     external: false
